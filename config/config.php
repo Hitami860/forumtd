@@ -68,7 +68,7 @@ class bdd
             $statut = $users->getStatut();
             $email = $users->getEmail();
 
-            $sql = $this->bdd->prepare("INSERT INTO users (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email);");
+            $sql = $this->bdd->prepare("INSERT INTO utilisateur (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email);");
             $sql->bindParam(':pseudo', $pseudo);
             $sql->bindParam(':password', $password);
             $sql->bindParam(':statut', $statut);

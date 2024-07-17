@@ -71,7 +71,7 @@ $categorie = $bdd->getAllcategorie();
                 </article>
                 <article>
                     <?php foreach ($bdd->getAllsous_categorie($categori['id']) as $sous_categori) { ?>
-                        <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article>
+                        <a href="post/sous_categorie.php?id=<?php echo $sous_categori['id'] ?>"><article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article></a>
                 <?php }
                 } ?>
         </div>
