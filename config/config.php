@@ -46,7 +46,7 @@ class bdd
     {
         try {
 
-            $sql = $this->bdd->connect()->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
+            $sql = $this->bdd->prepare("SELECT * FROM utilisateur WHERE pseudo = :pseudo");
             $sql->bindParam(':pseudo', $pseudo);
             $sql->execute();
 
@@ -80,5 +80,18 @@ class bdd
             $this->bdd->rollBack();
             echo $th->getMessage();
         }
+    }
+
+    public function getAllcategorie(){
+        $sql = 'SELECT * FROM categorie';
+        $done = $this->bdd->query($sql);
+        return $done->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAllsous_categorie($id){
+        $sql = $this->bdd->prepare('SELECT * FROM sous_categorie WHERE id_categorie = :id');
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 }
