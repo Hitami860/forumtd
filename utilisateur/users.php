@@ -56,4 +56,5 @@ class Users
     {
         return $this->statut;
     }
+
 }

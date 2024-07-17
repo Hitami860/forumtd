@@ -1,6 +1,6 @@
 <?php
 
-include('./utilisateur/users.php');
+include('utilisateur/users.php');
 
 class bdd
 {
@@ -23,13 +23,21 @@ class bdd
         $requetexe->execute(['username' => $pseudo, 'password' => $password]);
     }
 
+    public function getAll()
+    {
+        $sql = "SELECT * FROM utilisateur";
+
+        $done = $this->bdd->query($sql);
+
+        return $done->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function authentification($param = [])
     {
 
         $users = $this->getAll();
 
         foreach ($users as $user) {
-            if ($param["usern"] == $user["username"] && password_verify($param["password"], $user["password"])) {
+            if ($param["usern"] == $user["pseudo"] && password_verify($param["password"], $user["password"])) {
                 return $user;
             }
         }
@@ -54,7 +62,7 @@ class bdd
         try {
 
             $this->bdd->beginTransaction();
-            
+
             $pseudo = $users->getPseudo();
             $password = $users->getPassword();
             $statut = $users->getStatut();
@@ -72,9 +80,5 @@ class bdd
             $this->bdd->rollBack();
             echo $th->getMessage();
         }
-    }
-
-    public function connection($param = [])
-    {
     }
 }
