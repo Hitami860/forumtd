@@ -2,8 +2,9 @@
 require_once('config.php');
 require_once('utilisateur/users.php');
 
-$bdd=new bdd();
+$bdd = new bdd();
 $bdd->connect();
+session_start();
 
 if (isset($_POST["connexion"])) {
     $userr = $_POST["usern"];
@@ -56,11 +57,18 @@ if (isset($_POST["connexion"])) {
                         <li>
                             <a href="index.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Accueil</a>
                         </li>
+                        <?php if (isset($_SESSION['user'])) { ?> <!-- Si une session est ouverte.... !-->
+                            <li>
+                                <a href="deconnexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Deconnexion</a>
+                            </li> <!-- Afficher le boutton deconnexion !-->
+                        <?php } else { ?>
+                            <li>
+                                <a href="connexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</a>
+                            </li>
+                        <?php } ?>
+
                         <li>
-                            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">About</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
+                            <a href="contact.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -78,10 +86,10 @@ if (isset($_POST["connexion"])) {
         <input type="submit" name="connexion" value="Connexion" class="border border-black bg-[#1486e1] text-xl w-48 h-12 rounded-xl">
     </form>
 
-    
+
     <p class="flex justify-center">Pas encore de compte ? Inscris-toi gratuitement !</p>
     <a href="inscription.php" class="flex justify-center"><button>Inscription</button></a>
- 
+
 
 </body>
 
