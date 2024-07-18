@@ -76,13 +76,14 @@ if (isset($_POST['inscription'])) {
 
     </header>
 
-    <h2 class="flex justify-center text-xl">Crées ton compte !</h2>
+    <div class="mt-[10%]">
+    <h2 class="flex justify-center text-xl ">Crées ton compte !</h2> <br>
     <form action="" method="post" class="flex flex-col justify-center w-full items-center gap-5">
         <input type="text" name="username" placeholder="Identifiant ou mail" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
         <input name="password" placeholder="Mot de passe" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
         <input type="submit" name="inscription" value="inscription" class="border border-black bg-[#1486e1] text-xl w-48 h-12 rounded-xl">
     </form>
-
+    </div>
 </body>
 
 </html>
