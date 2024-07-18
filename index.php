@@ -53,10 +53,17 @@ $categorie = $bdd->getAllcategorie();
                                 <a href="connexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</a>
                             </li>
                         <?php } ?>
-
                         <li>
                             <a href="contact.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Contact</a>
                         </li>
+                        <?php if (isset($_SESSION['user'])) { ?>
+                            <a href="profil.php"><img src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="Photo profil" class="w-10 h-fit rounded-full"></a>
+                        <?php } ?>
+                        <?php if (isset($_SESSION['user'])) { ?>
+                            <p class="text-xl text-bold">
+                                <?php print $_SESSION['user']['pseudo'] ?>
+                            </p>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -71,7 +78,9 @@ $categorie = $bdd->getAllcategorie();
                 </article>
                 <article>
                     <?php foreach ($bdd->getAllsous_categorie($categori['id']) as $sous_categori) { ?>
-                        <a href="post/sous_categorie.php?id=<?php echo $sous_categori['id'] ?>"><article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article></a>
+                        <a href="post/sous_categorie.php?id=<?php echo $sous_categori['id'] ?>">
+                            <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article>
+                        </a>
                 <?php }
                 } ?>
         </div>

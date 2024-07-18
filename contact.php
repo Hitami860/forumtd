@@ -48,6 +48,14 @@ session_start();
                         <a href="connexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</a>
                     </li>
                     <?php } ?>
+                    <?php if (isset($_SESSION['user'])) { ?>
+                            <img src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="Photo profil" class="w-10 h-fit rounded-full">
+                        <?php } ?>
+                        <?php if (isset($_SESSION['user'])) { ?>
+                <p class="text-xl text-bold">
+                <?php print $_SESSION['user']['pseudo'] ?>
+                </p>
+            <?php } ?>
                 </ul>
             </div>
         </div>
