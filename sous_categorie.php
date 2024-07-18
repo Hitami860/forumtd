@@ -1,32 +1,26 @@
 <?php
 
 require_once('config/config.php');
-
 session_start();
 $bdd = new bdd();
 $bdd->connect();
+$id= $_GET['id'];
 
-$categorie = $bdd->getAllcategorie();
 
 
 ?>
 
 
-
-
-
 <!DOCTYPE html>
-<html lang="fr">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
-
 <body>
-    <header>
+<header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="index.php" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -70,23 +64,10 @@ $categorie = $bdd->getAllcategorie();
         </nav>
     </header>
 
-    <main class=" container mx-auto">
-
-        <div class="flex flex-col">
-            <?php foreach ($categorie as $categori) { ?>
-                <article class="text-2xl uppercase border bg-[#74a1f0] pt-3 pb-3 pl-5"><?php echo $categori['nom']; ?>
-                </article>
-                <article>
-                    <?php foreach ($bdd->getAllsous_categorie($categori['id']) as $sous_categori) { ?>
-                        <a href="sous_categorie.php?id=<?php echo $sous_categori['id'] ?>">
-                            <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article>
-                        </a>
-                <?php }
-                } ?>
-        </div>
-
-    </main>
-
+    <form action="" name="" class="flex justify-center items-center flex-col"> <br>
+        <input type="text" name="titre" placeholder="Titre du post" class="border"> <br>
+        <textarea name="contenu" id="" placeholder="Contenu du post"></textarea> <br>
+        <button type="submit" name="publier">Publier</button>
+    </form>
 </body>
-
 </html>
