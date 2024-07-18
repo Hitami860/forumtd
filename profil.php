@@ -71,7 +71,7 @@ $user = $bdd->getAll();
         </nav>
     </header>
 
-
+    <main class=" container mx-auto">
     <?php if (isset($_SESSION['user'])) { ?>
         <div class="flex items-center my-20 border-black border rounded-xl p-4 bg-[#dfedfc]">
             <img src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="" class="w-40 h-fit rounded-full mr-10"> </br>
@@ -86,6 +86,7 @@ $user = $bdd->getAll();
             </div>
         </div>
     <?php  } ?>
+  </main>
 
 </body>
 

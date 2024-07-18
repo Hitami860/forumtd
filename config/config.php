@@ -1,6 +1,7 @@
 <?php
 
 include('utilisateur/users.php');
+include('post/post.php');
 
 class bdd
 {

@@ -61,10 +61,10 @@ if (isset($_POST["connexion"])) {
                         <li>
                             <a href="index.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Accueil</a>
                         </li>
-                        <?php if (isset($_SESSION['user'])) { ?> <!-- Si une session est ouverte.... !-->
+                        <?php if (isset($_SESSION['user'])) { ?> 
                             <li>
                                 <a href="deconnexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Deconnexion</a>
-                            </li> <!-- Afficher le boutton deconnexion !-->
+                            </li> 
                         <?php } else { ?>
                             <li>
                                 <a href="connexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Connexion</a>
@@ -84,17 +84,18 @@ if (isset($_POST["connexion"])) {
 
     </header>
 
-
-    <h2 class="flex justify-center text-xl">Connectes-toi !</h2>
+    <div class="mt-[10%]">
+    <h2 class="flex justify-center text-xl">Connectes-toi !</h2> <br>
     <form action="" method="post" class="flex flex-col justify-center w-full items-center gap-5">
         <input type="text" name="usern" placeholder="Mail ou identifiant" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
         <input name="motdp" id="password" placeholder="Mot de passe" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
         <input type="submit" name="connexion" value="Connexion" class="border border-black bg-[#1486e1] text-xl w-48 h-12 rounded-xl">
-    </form>
+    </form> <br>
 
 
-    <p class="flex justify-center">Pas encore de compte ? Inscris-toi gratuitement !</p>
-    <a href="inscription.php" class="flex justify-center"><button>Inscription</button></a>
+    <p class="flex justify-center">Pas encore de compte ? Inscris-toi gratuitement !</p> <br>
+    <a href="inscription.php" class="flex justify-center text-xl bold text-red-600"><button>Inscription</button></a>
+    </div>
 
 
 </body>

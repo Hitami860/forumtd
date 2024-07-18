@@ -21,7 +21,7 @@ if (isset($_POST['inscription'])) {
             $bdd->inscription($users);
             header("Location: inscription.php");
         }else{
-            echo "Ce pseudo existe déjà ou les identifiants sont vides";
+            echo "Identifiant ou mot de passe incorrect";
         }
 }
 }
