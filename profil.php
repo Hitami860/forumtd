@@ -88,6 +88,7 @@ $user = $bdd->getAll();
                     Pseudo : <?php print $_SESSION['user']['pseudo']; ?> </br>
                     Email : <?php print $_SESSION['user']['email']; ?> </br>
                     Mot de passe : <?php print $_SESSION['user']['password']; ?> </br>
+                    Statut : <?php print $_SESSION['user']['statut']; ?> </br>
 
                 </p>
             </div>

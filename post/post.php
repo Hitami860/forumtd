@@ -75,7 +75,7 @@ class posts
         return $this->s_cat;
     }
 
-    public function getDate(): DateTime
+    public function getDate()
     {
         return $this->date;
     }

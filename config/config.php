@@ -102,14 +102,17 @@ class bdd
         $contenu = $posts->getContenu();
         $auteur = $posts->getAuteur();
         $id_sous_categorie = $posts->getIdsouscat();
+        $date= $posts->getDate();
 
 
-        $sql = 'INSERT INTO post (titre, contenu, auteur, id_sous_categorie) VALUES(:titre, :contenu, :auteur, :id_sous_categorie)';
+        $sql = 'INSERT INTO post (titre, contenu, auteur, id_sous_categorie, date_creation) VALUES(:titre, :contenu, :auteur, :id_sous_categorie, :date_creation)';
         $sql = $this->bdd->prepare($sql);
         $sql->bindParam(":titre",$titre);
         $sql->bindParam(":contenu",$contenu);
         $sql->bindParam(":auteur",$auteur);
         $sql->bindParam(":id_sous_categorie",$id_sous_categorie);
+        $sql->bindParam(":date_creation",$date);
+
         $sql->execute();
     }
 

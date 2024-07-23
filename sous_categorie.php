@@ -6,18 +6,21 @@ $bdd = new bdd();
 $bdd->connect();
 $id = $_GET["id"];
 $posts = $bdd->getAllposts();
+$date=date('d/m/Y h:i:s');
 
 
 if (isset($_POST["publier"])) {
 
     $titre = ($_POST["titre"]);
     $contenu = ($_POST["contenu"]);
+    $time=$date;
     $newpost = new posts();
     $auteur = $_SESSION['user']['id'];
     $newpost->setTitre($titre);
     $newpost->setContenu($contenu);
     $newpost->setAuteur($auteur);
     $newpost->setIdsouscat($id);
+    $newpost->setDate($time);
     $bdd->addPost($newpost);
 }
 
@@ -89,9 +92,9 @@ if (isset($_POST["publier"])) {
             <tbody>
                 <?php foreach ($bdd->getAllposts() as  $post) { ?>
                     <tr>
-                        <td style="padding: 10px;" align="center"><?php echo $post['titre']; ?></td>
-                        <td style="padding: 10px;" align="center"><?php echo $post['contenu']; ?></td>
-                        <td style="padding: 10px;" align="center"><?php echo $post['auteur']; ?></td>
+                        <td class="border border-black flex items-center justify-center"><?php echo $post['titre']; ?></td>
+                        <td class="border border-black "><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></td>
+                        <td class="border border-black flex items-center justify-center"><?php echo $post['auteur']; ?></td>
                         <?php if (isset($_SESSION['user'])) { ?>
                             <?php if ($_SESSION['user']['id'] == "id") { ?>
                                 <td><a><?php echo $post['id']; ?>Editer</a></td>
