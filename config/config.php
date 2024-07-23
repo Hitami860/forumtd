@@ -95,4 +95,30 @@ class bdd
         $sql->execute();
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getAllPosts()
+	{
+		$sql = "SELECT * FROM post";
+		$sql = $this->bdd->query($sql);
+		return $sql->fetchAll(PDO::FETCH_ASSOC);
+	}
+    
+    public function addPost(posts $posts)
+    {
+
+        $titre = $posts->getTitre();
+        $contenu = $posts->getContenu();
+        $auteur = $posts->getAuteur();
+        $id_sous_categorie = $posts->getIdsouscat();
+
+
+        $sql = 'INSERT INTO post (titre, contenu, auteur, id_sous_categorie) VALUES(:titre, :contenu, :auteur, :id_sous_categorie)';
+        $sql = $this->bdd->prepare($sql);
+        $sql->bindParam(":titre",$titre);
+        $sql->bindParam(":contenu",$contenu);
+        $sql->bindParam(":auteur",$auteur);
+        $sql->bindParam(":id_sous_categorie",$id_sous_categorie);
+        $sql->execute();
+    }
+
 }
