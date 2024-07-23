@@ -6,14 +6,14 @@ $bdd = new bdd();
 $bdd->connect();
 $id = $_GET["id"];
 $posts = $bdd->getAllposts();
-$date=date('d/m/Y h:i:s');
+$date = date('d/m/Y h:i:s');
 
 
 if (isset($_POST["publier"])) {
 
     $titre = ($_POST["titre"]);
     $contenu = ($_POST["contenu"]);
-    $time=$date;
+    $time = $date;
     $newpost = new posts();
     $auteur = $_SESSION['user']['id'];
     $newpost->setTitre($titre);
@@ -82,28 +82,27 @@ if (isset($_POST["publier"])) {
             </div>
         </nav>
     </header>
+    <div class="container mx-auto">
+
+        <?php foreach ($bdd->getAllposts() as  $post) { ?>
+            <a href="reponse.php" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <img class="object-cover w-full rounded-t-lg h-96 md:h-12 md:w-12 md:rounded-none md:rounded-s-lg" src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="photo profil">
+                <div class="flex flex-col justify-between p-4 leading-normal">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $post['titre']; ?></h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></p>
+                    <?php echo $post['auteur']; ?>
+                </div>
+            </a> <br>
+            <?php if (isset($_SESSION['user'])) { ?>
+                <?php if ($_SESSION['user']['id'] == "id") { ?>
+                    <td><a><?php echo $post['id']; ?>Editer</a></td>
+            <?php }
+            } ?>
+        <?php } ?>
+
+
+    </div>
     <main class=" container mx-auto">
-        <table class="border w-full border-black">
-            <thead class=" border border-black">
-                <th class="border border-black">titre</th>
-                <th class="border border-black">contenu</th>
-                <th class="border border-black">auteur</th>
-            </thead>
-            <tbody>
-                <?php foreach ($bdd->getAllposts() as  $post) { ?>
-                    <tr>
-                        <td class="border border-black flex items-center justify-center"><?php echo $post['titre']; ?></td>
-                        <td class="border border-black "><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></td>
-                        <td class="border border-black flex items-center justify-center"><?php echo $post['auteur']; ?></td>
-                        <?php if (isset($_SESSION['user'])) { ?>
-                            <?php if ($_SESSION['user']['id'] == "id") { ?>
-                                <td><a><?php echo $post['id']; ?>Editer</a></td>
-                        <?php }
-                        } ?>
-                    </tr>
-                <?php } ?>
-            </tbody>
-        </table> <br>
         <form action="" name="" class="flex justify-center items-center flex-col flex-end" method="post"> <br>
             <input type="text" name="titre" placeholder="Titre du post" class=" h-8 w-[50%] border border-slate-400 border-solid rounded"> <br>
             <textarea name="contenu" id="" placeholder="Contenu du post" class="h-64 w-[50%] border border-slate-400 border-solid rounded bg-gray-100"></textarea> <br>
