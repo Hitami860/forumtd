@@ -5,26 +5,19 @@ require_once('utilisateur/users.php');
 $bdd=new bdd();
 $bdd->connect();
 
-if (isset($_POST['inscription'])) {
-    $mdp = password_hash($_POST["password"], PASSWORD_BCRYPT);
-    $bdd->addUser($_POST["username"], $mdp);
 
     if (isset($_POST['inscription'])) {
         $pseudo = $_POST['username'];
         $password = $_POST['password'];
+        $email = $_POST['email'];
         $statut= "user";
-        $user = $bdd->getUsers($pseudo);
-        if (!empty($pseudo) && !empty($password) && !$user) {
             $users = new Users();
             $users->setPseudo($pseudo);
-            $users->setPassword(password_hash($password, PASSWORD_DEFAULT));
-            $users->setStatut("user");
+            $users->setPassword(password_hash($password, PASSWORD_BCRYPT));
+            $users->setStatut ($statut);
+            $users->setEmail($email);
             $bdd->inscription($users);
-            header("Location: inscription.php");
-        }else{
-            echo "Identifiant ou mot de passe incorrect";
-        }
-}
+            header("Location: connexion.php");
 }
 
 
@@ -82,6 +75,7 @@ if (isset($_POST['inscription'])) {
     <form action="" method="post" class="flex flex-col justify-center w-full items-center gap-5">
         <input type="text" name="username" placeholder="Identifiant ou mail" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
         <input name="password" placeholder="Mot de passe" class="h-8 w-[50%] border border-slate-400 border-solid rounded">
+        <input type="email" name="email" placeholder="Email" class="h-8 w-[50%] border border-slate-400 border-solid rounded" >
         <input type="submit" name="inscription" value="inscription" class="border border-black bg-[#1486e1] text-xl w-48 h-12 rounded-xl">
     </form>
     </div>

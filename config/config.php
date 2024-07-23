@@ -16,14 +16,6 @@ class bdd
         }
     }
 
-    public function addUser($pseudo, $password,)
-    {
-
-        $requete = 'INSERT INTO utilisateur (pseudo, password) VALUES(:username, :password)';
-        $requetexe = $this->bdd->prepare($requete);
-        $requetexe->execute(['username' => $pseudo, 'password' => $password]);
-    }
-
     public function getAll()
     {
         $sql = "SELECT * FROM utilisateur";
@@ -69,7 +61,7 @@ class bdd
             $statut = $users->getStatut();
             $email = $users->getEmail();
 
-            $sql = $this->bdd->prepare("INSERT INTO utilisateur (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email);");
+            $sql = $this->bdd->prepare("INSERT INTO utilisateur (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email)");
             $sql->bindParam(':pseudo', $pseudo);
             $sql->bindParam(':password', $password);
             $sql->bindParam(':statut', $statut);
@@ -119,6 +111,28 @@ class bdd
         $sql->bindParam(":auteur",$auteur);
         $sql->bindParam(":id_sous_categorie",$id_sous_categorie);
         $sql->execute();
+    }
+
+    public function updateUser($param = []): void
+    {
+        $sql = $this->bdd->prepare("UPDATE utilisateur SET utilisateur (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email);");
+        $sql->bindParam(":pseudo", $param["pseudo"]);
+        $sql->bindParam(":password", $param["password"]);
+        $sql->bindParam(":statut", $param["statut"]);
+        $sql->bindParam(":email", $param["email"]);
+        $sql->execute();
+
+    }
+
+    public function updatePost($param = []): void
+    {
+        $sql = $this->bdd->prepare("UPDATE post SET titre = :titre, contenu = :contenu, auteur = :auteur WHERE id = :id");
+        $sql->bindParam(":titre", $param["titre"]);
+        $sql->bindParam(":contenu", $param["contenu"]);
+        $sql->bindParam(":auteur", $param["auteur"]);
+        $sql->bindParam(":id", $param["id"]);
+        $sql->execute();
+
     }
 
 }
