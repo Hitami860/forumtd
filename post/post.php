@@ -12,6 +12,8 @@ class posts
 
     private $date;
 
+    private $s_cat;
+
     private $bdd;
 
 
@@ -63,6 +65,14 @@ class posts
     public function setDate($date)
     {
         $this->date = $date;
+    }
+    public function setIdsouscat($s_cat)
+    {
+        $this->s_cat = $s_cat;
+    }
+    public function getIdsouscat()
+    {
+        return $this->s_cat;
     }
 
     public function getDate(): DateTime
