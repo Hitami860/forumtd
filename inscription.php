@@ -12,6 +12,7 @@ if (isset($_POST['inscription'])) {
     if (isset($_POST['inscription'])) {
         $pseudo = $_POST['username'];
         $password = $_POST['password'];
+        $statut= "user";
         $user = $bdd->getUsers($pseudo);
         if (!empty($pseudo) && !empty($password) && !$user) {
             $users = new Users();

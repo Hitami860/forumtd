@@ -4,8 +4,22 @@ require_once('config/config.php');
 session_start();
 $bdd = new bdd();
 $bdd->connect();
-$id= $_GET['id'];
+$id = $_GET["id"];
+$posts = $bdd->getAllposts();
 
+
+if (isset($_POST["publier"])) {
+
+    $titre = ($_POST["titre"]);
+    $contenu = ($_POST["contenu"]);
+    $newpost = new posts();
+    $auteur = $_SESSION['user']['id'];
+    $newpost->setTitre($titre);
+    $newpost->setContenu($contenu);
+    $newpost->setAuteur($auteur);
+    $newpost->setIdsouscat($id);
+    $bdd->addPost($newpost);
+}
 
 
 ?>
@@ -13,14 +27,16 @@ $id= $_GET['id'];
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Document</title>
 </head>
+
 <body>
-<header>
+    <header>
         <nav class="bg-white border-gray-200 dark:bg-gray-900">
             <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
                 <a href="index.php" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -63,11 +79,35 @@ $id= $_GET['id'];
             </div>
         </nav>
     </header>
+    <main class=" container mx-auto">
+        <table class="border w-full border-black">
+            <thead class=" border border-black">
+                <th class="border border-black">titre</th>
+                <th class="border border-black">contenu</th>
+                <th class="border border-black">auteur</th>
+            </thead>
+            <tbody>
+                <?php foreach ($bdd->getAllposts() as  $post) { ?>
+                    <tr>
+                        <td style="padding: 10px;" align="center"><?php echo $post['titre']; ?></td>
+                        <td style="padding: 10px;" align="center"><?php echo $post['contenu']; ?></td>
+                        <td style="padding: 10px;" align="center"><?php echo $post['auteur']; ?></td>
+                        <?php if (isset($_SESSION['user'])) { ?>
+                            <?php if ($_SESSION['user']['id'] == "id") { ?>
+                                <td><a><?php echo $post['id']; ?>Editer</a></td>
+                        <?php }
+                        } ?>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table> <br>
+        <form action="" name="" class="flex justify-center items-center flex-col flex-end" method="post"> <br>
+            <input type="text" name="titre" placeholder="Titre du post" class=" h-8 w-[50%] border border-slate-400 border-solid rounded"> <br>
+            <textarea name="contenu" id="" placeholder="Contenu du post" class="h-64 w-[50%] border border-slate-400 border-solid rounded bg-gray-100"></textarea> <br>
+            <button type="submit" name="publier" class="py-3 px-5 text-sm font-medium border bg-[#74a1f0] text-center text-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Publier</button>
+        </form>
+    </main>
 
-    <form action="" name="" class="flex justify-center items-center flex-col"> <br>
-        <input type="text" name="titre" placeholder="Titre du post" class="border"> <br>
-        <textarea name="contenu" id="" placeholder="Contenu du post"></textarea> <br>
-        <button type="submit" name="publier">Publier</button>
-    </form>
 </body>
+
 </html>

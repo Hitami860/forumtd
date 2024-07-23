@@ -49,7 +49,7 @@ session_start();
                     </li>
                     <?php } ?>
                     <?php if (isset($_SESSION['user'])) { ?>
-                            <img src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="Photo profil" class="w-10 h-fit rounded-full">
+                            <a href="profil.php"><img src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="Photo profil" class="w-10 h-fit rounded-full"></a>
                         <?php } ?>
                         <?php if (isset($_SESSION['user'])) { ?>
                 <p class="text-xl text-bold">
