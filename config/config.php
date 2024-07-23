@@ -75,13 +75,15 @@ class bdd
         }
     }
 
-    public function getAllcategorie(){
+    public function getAllcategorie()
+    {
         $sql = 'SELECT * FROM categorie';
         $done = $this->bdd->query($sql);
         return $done->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getAllsous_categorie($id){
+    public function getAllsous_categorie($id)
+    {
         $sql = $this->bdd->prepare('SELECT * FROM sous_categorie WHERE id_categorie = :id');
         $sql->bindParam(':id', $id);
         $sql->execute();
@@ -89,12 +91,12 @@ class bdd
     }
 
     public function getAllPosts()
-	{
-		$sql = "SELECT * FROM post";
-		$sql = $this->bdd->query($sql);
-		return $sql->fetchAll(PDO::FETCH_ASSOC);
-	}
-    
+    {
+        $sql = "SELECT * FROM post";
+        $sql = $this->bdd->query($sql);
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function addPost(posts $posts)
     {
 
@@ -102,16 +104,16 @@ class bdd
         $contenu = $posts->getContenu();
         $auteur = $posts->getAuteur();
         $id_sous_categorie = $posts->getIdsouscat();
-        $date= $posts->getDate();
+        $date = $posts->getDate();
 
 
         $sql = 'INSERT INTO post (titre, contenu, auteur, id_sous_categorie, date_creation) VALUES(:titre, :contenu, :auteur, :id_sous_categorie, :date_creation)';
         $sql = $this->bdd->prepare($sql);
-        $sql->bindParam(":titre",$titre);
-        $sql->bindParam(":contenu",$contenu);
-        $sql->bindParam(":auteur",$auteur);
-        $sql->bindParam(":id_sous_categorie",$id_sous_categorie);
-        $sql->bindParam(":date_creation",$date);
+        $sql->bindParam(":titre", $titre);
+        $sql->bindParam(":contenu", $contenu);
+        $sql->bindParam(":auteur", $auteur);
+        $sql->bindParam(":id_sous_categorie", $id_sous_categorie);
+        $sql->bindParam(":date_creation", $date);
 
         $sql->execute();
     }
@@ -124,7 +126,6 @@ class bdd
         $sql->bindParam(":statut", $param["statut"]);
         $sql->bindParam(":email", $param["email"]);
         $sql->execute();
-
     }
 
     public function updatePost($param = []): void
@@ -135,7 +136,16 @@ class bdd
         $sql->bindParam(":auteur", $param["auteur"]);
         $sql->bindParam(":id", $param["id"]);
         $sql->execute();
-
     }
 
+
+    public function addReponse(posts $posts)
+    {
+
+        $titre = $posts->getTitre();
+        $contenu = $posts->getContenu();
+        $auteur = $posts->getAuteur();
+        $id_sous_categorie = $posts->getIdsouscat();
+        $date = $posts->getDate();
+    }
 }
