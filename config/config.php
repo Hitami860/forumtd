@@ -2,6 +2,7 @@
 
 include('utilisateur/users.php');
 include('post/post.php');
+include('post/reponseclass.php');
 
 class bdd
 {

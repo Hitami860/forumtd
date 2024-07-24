@@ -58,10 +58,10 @@ if (isset($_POST["publier"])) {
                             <a href="index.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Accueil</a>
                         </li>
                         <?php if (isset($_SESSION['user'])) { ?>
-                        <?php if ($_SESSION['user']['statut'] == "admin") { ?>
-                            <li>
-                                <a href="admin.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
-                            </li>
+                            <?php if ($_SESSION['user']['statut'] == "admin") { ?>
+                                <li>
+                                    <a href="admin.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                                </li>
                         <?php }
                         } ?>
                         <?php if (isset($_SESSION['user'])) { ?>
@@ -93,21 +93,27 @@ if (isset($_POST["publier"])) {
 
         <?php foreach ($posts as  $post) { ?>
             <?php if ($post['id_sous_categorie'] == $id) { ?>
-            <a href="reponse.php" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-full hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                <img class="object-cover w-full rounded-t-lg h-96 md:h-12 md:w-12 md:rounded-none md:rounded-s-lg" src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="photo profil">
-                <div class="flex flex-col justify-between p-4 leading-normal">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $post['titre']; ?></h5>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></p>
-                    <?php echo $post['auteur']; ?>
-                </div>
-            </a> <br>
-            <?php if (isset($_SESSION['user'])) { ?>
-                <?php if ($_SESSION['user']['id'] == "id") { ?>
-                    <td><a><?php echo $post['id']; ?>Editer</a></td>
-            <?php }
-            } ?>
-           <?php } ?>
+                <a class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-[90%] hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                    <img class="object-cover w-full rounded-t-lg h-96 md:h-12 md:w-12 md:rounded-none md:rounded-s-lg" src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="photo profil">
+                    <div class="flex flex-col justify-between p-4 leading-normal">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $post['titre']; ?></h5>
+                        <div>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></p>
+                        </div>
+                        <?php echo $post['auteur']; ?>
+                    </div>
+                    <form action="reponse.php">
+                        <button type="submit" method="get" name="acceder" value=<?php echo $post['id'] ?>>Acceder</button>
+                    </form>
+                </a> <br>
+                <?php if (isset($_SESSION['user'])) { ?>
+                    <?php if ($_SESSION['user']['id'] == "id") { ?>
+                        <td><a><?php echo $post['id']; ?>Editer</a></td>
+                <?php }
+                } ?>
+            <?php } ?>
         <?php } ?>
+
 
 
     </div>

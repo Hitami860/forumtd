@@ -3,7 +3,8 @@ require_once('config/config.php');
 session_start();
 $bdd=new bdd();
 $bdd->connect();
-$id = $_GET["id"];
+$posts = $bdd->getAllposts();
+$id=$_GET['acceder'];
 
 
 
@@ -65,5 +66,24 @@ $id = $_GET["id"];
             </div>
         </nav>
     </header>
+
+    <main class=" container mx-auto">
+    <?php foreach ($posts as  $post) { ?>
+        <?php if ($post['id'] == $id) { ?>
+            <a href="reponse.php" class="flex flex-col items-center bg-[#74a1f0] border border-gray-200 rounded-lg shadow md:flex-row md:max-w-[90%]  dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <img class="object-cover w-full rounded-t-lg h-96 md:h-12 md:w-12 md:rounded-none md:rounded-s-lg" src="https://img.icons8.com/?size=100&id=kDoeg22e5jUY&format=png&color=000000" alt="photo profil">
+                <div class="flex flex-col justify-between p-4 leading-normal">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?php echo $post['titre']; ?></h5>
+                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><?php echo $post['contenu'];  ?><br><?php echo $post['date_creation'] ?></p>
+                    <?php echo $post['auteur']; ?>
+                </div>
+                <?php }} ?>
+            </a>
+        <form action="" name="" class="flex justify-center items-center flex-col flex-end" method="post"> <br>
+            <p>Ecris un commentaire:</p>
+            <textarea name="rep" id="" placeholder="Contenu de la réponse" class="h-64 w-[50%] border border-slate-400 border-solid rounded bg-gray-100"></textarea> <br>
+            <button type="submit" name="envoyer" class="py-3 px-5 text-sm font-medium border bg-[#74a1f0] text-center text-black rounded-lg bg-primary-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Publier</button>
+        </form>
+    </main>
 </body>
 </html>
