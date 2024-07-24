@@ -7,6 +7,23 @@ $bdd = new bdd();
 $bdd->connect();
 
 $categorie = $bdd->getAllcategorie();
+$sous_categorie = $bdd->getAllsous_categoriee();
+
+if (isset($_POST['supprimer'])) {
+    foreach ($users as $user) {
+        if ($_POST['supprimer'] == $user['id']) {
+            $bdd->deleteCatego($user['id']);
+        }
+    }
+
+    if (isset($_POST['delete'])) {
+        foreach ($users as $user) {
+            if ($_POST['supprimerr'] == $user['id']) {
+                $bdd->deleteSouscatego($user['id']);
+            }
+        }
+    }
+}
 
 
 ?>
@@ -45,13 +62,13 @@ $categorie = $bdd->getAllcategorie();
                             <a href="index.php" class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Accueil</a>
                         </li>
                         <?php if (isset($_SESSION['user'])) { ?>
-                        <?php if ($_SESSION['user']['statut'] == "admin") { ?>
-                            <li>
-                                <a href="admin.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
-                            </li>
+                            <?php if ($_SESSION['user']['statut'] == "admin") { ?>
+                                <li>
+                                    <a href="admin.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Admin</a>
+                                </li>
                         <?php }
                         } ?>
-                        
+
                         <?php if (isset($_SESSION['user'])) { ?>
                             <li>
                                 <a href="deconnexion.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Deconnexion</a>
@@ -82,13 +99,26 @@ $categorie = $bdd->getAllcategorie();
 
         <div class="flex flex-col">
             <?php foreach ($categorie as $categori) { ?>
-                <article class="text-2xl uppercase border bg-[#74a1f0] pt-3 pb-3 pl-5"><?php echo $categori['nom']; ?>
-                </article>
+                <div>
+                    <article class="text-2xl uppercase border bg-[#74a1f0] pt-3 pb-3 pl-5 flex flex-row justify-between">
+                        <?php echo $categori['nom']; ?>
+                        <form action="" method="post">
+                            <button class="text-sm"type="text" name="supprimer">Supprimer</button>
+                        </form>
+                    </article>
+                </div>
                 <article>
-                    <?php foreach ($bdd->getAllsous_categorie($categori['id']) as $sous_categori) { ?>
-                        <a href="sous_categorie.php?id=<?php echo $sous_categori['id'] ?>">
-                            <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 "><?php print $sous_categori["nom"]; ?></article>
-                        </a>
+                    <?php foreach ($sous_categorie as $sous_categori) { ?>
+                        <?php if ($sous_categori['id_categorie'] == $categori['id']) { ?>
+                            <a href="sous_categorie.php?id=<?php echo $sous_categori['id'] ?>">
+                                <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 flex flex-row justify-between"><?php print $sous_categori["nom"]; ?>
+                                    <form action="" method="post">
+                                        <button class="flex flex-end text-sm" type="text" name="supprimer">Supprimer</button>
+                                    </form>
+                                </article>
+
+                            </a>
+                        <?php } ?>
                 <?php }
                 } ?>
         </div>

@@ -90,6 +90,14 @@ class bdd
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getAllsous_categoriee()
+    {
+        $sql = "SELECT * FROM sous_categorie";
+        $sql = $this->bdd->query($sql);
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+
+    }
+    
     public function getAllPosts()
     {
         $sql = "SELECT * FROM post";
@@ -118,7 +126,7 @@ class bdd
         $sql->execute();
     }
 
-    public function updateUser($param = []): void
+    public function updateUser($param = [])
     {
         $sql = $this->bdd->prepare("UPDATE utilisateur SET utilisateur (pseudo, password, statut, email) VALUES (:pseudo, :password, :statut, :email);");
         $sql->bindParam(":pseudo", $param["pseudo"]);
@@ -147,5 +155,13 @@ class bdd
         $auteur = $posts->getAuteur();
         $id_sous_categorie = $posts->getIdsouscat();
         $date = $posts->getDate();
+    }
+
+    public function deleteUser($id)
+    {
+
+        $sql = $this->bdd->prepare("DELETE FROM utilisateur WHERE id = :id");
+        $sql->bindParam(":id", $id);
+        $sql->execute();
     }
 }
