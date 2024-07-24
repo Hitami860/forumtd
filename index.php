@@ -102,9 +102,13 @@ if (isset($_POST['supprimer'])) {
                 <div>
                     <article class="text-2xl uppercase border bg-[#74a1f0] pt-3 pb-3 pl-5 flex flex-row justify-between">
                         <?php echo $categori['nom']; ?>
+                        <?php if (isset($_SESSION['user'])) { ?>
+                        <?php if($_SESSION['user']['statut'] == "admin") { ?>
                         <form action="" method="post">
-                            <button class="text-sm"type="text" name="supprimer">Supprimer</button>
+                            <button class="text-sm text-red-600"type="text" name="supprimer">Supprimer</button>
                         </form>
+                        <?php } ?>
+                        <?php } ?>
                     </article>
                 </div>
                 <article>
@@ -112,9 +116,13 @@ if (isset($_POST['supprimer'])) {
                         <?php if ($sous_categori['id_categorie'] == $categori['id']) { ?>
                             <a href="sous_categorie.php?id=<?php echo $sous_categori['id'] ?>">
                                 <article class=" text-xl border bg-[#dfedfc] pt-3 pb-3 pl-10 flex flex-row justify-between"><?php print $sous_categori["nom"]; ?>
+                                <?php if(isset($_SESSION['user'])) { ?>
+                                    <?php if($_SESSION['user']['statut'] == "admin") { ?>
                                     <form action="" method="post">
-                                        <button class="flex flex-end text-sm" type="text" name="supprimer">Supprimer</button>
+                                        <button class="flex flex-end text-sm text-red-600" type="text" name="supprimer">Supprimer</button>
                                     </form>
+                                    <?php } ?>
+                                    <?php } ?>
                                 </article>
 
                             </a>
